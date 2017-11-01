@@ -1,6 +1,5 @@
 class Person:
-    n = 100
-    name = ""
+    name = str()
     children = list()
     sibling = list()
     parents = list()
@@ -24,7 +23,7 @@ class Person:
         return self.sibling
 
     def add_parent(self, par):
-        self.parent.append(par)
+        self.parents.append(par)
 
     def get_parent(self):
-        return self.parent
+        return self.parents
