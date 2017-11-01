@@ -4,8 +4,8 @@ class Person:
     sibling = list()
     parents = list()
 
-    def __init__(self, x):
-        name = x
+    def __init__(self, name):
+        self.name = name
 
     def get_name(self):
         return self.name
