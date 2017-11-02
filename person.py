@@ -1,11 +1,9 @@
-class Person:
-    name = str()
-    children = list()
-    siblings = list()
-    parents = list()
-
+class person:
     def __init__(self, x):
         self.name = x
+        self.children = list()
+        self.siblings = list()
+        self.parents = list()
 
     def get_name(self):
         return self.name
