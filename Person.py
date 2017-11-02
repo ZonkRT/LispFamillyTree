@@ -1,11 +1,11 @@
 class Person:
     name = str()
     children = list()
-    sibling = list()
+    siblings = list()
     parents = list()
 
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, x):
+        self.name = x
 
     def get_name(self):
         return self.name
@@ -16,14 +16,14 @@ class Person:
     def get_children(self):
         return self.children
 
-    def add_sibling(self, sib):
-        self.sibling.append(sib)
+    def add_siblings(self, sib):
+        self.siblings.append(sib)
 
-    def get_sibling(self):
-        return self.sibling
+    def get_siblings(self):
+        return self.siblings
 
-    def add_parent(self, par):
+    def add_parents(self, par):
         self.parents.append(par)
 
-    def get_parent(self):
+    def get_parents(self):
         return self.parents
