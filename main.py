@@ -6,59 +6,61 @@ class run_tree:
     answer = "hi"
     while input != "no":
         answer = input()
-        if answer == "":
-            print("Empty query entered")
+        list = answer.split(" ")
+        num = len(list)
+        if (num <= 2):
+            print("Empty query")
+        #check if it is E, and if there are queries filled in
         else:
-            key, d1, d2, d3 = answer.split()
-            if key == "E":
+            if list[0] == "E":
                 #add to family tree dictionary if not in familytree
-                if d1 not in familyTree:
-                    familyTree[d1] = person(d1)
-                if d2 not in familyTree:
-                    familyTree[d2] = person(d2)
-                if d3 != "":
-                    if d3 not in familyTree:
-                        familyTree[d3] = person(d3)
-                        child = familyTree[d3]
-                        child.add_parents(familyTree[d1])
-                        child.add_parents(familyTree[d2])
+                if list[1] not in familyTree:
+                    familyTree[list[1]] = person(list[1])
+                if list[2] not in familyTree:
+                    familyTree[list[2]] = person(list[2])
+                if num == 4:
+                    if list[3] not in familyTree:
+                        familyTree[list[3]] = person(list[3])
+                        child = familyTree[list[3]]
+                        child.add_parents(familyTree[list[1]])
+                        child.add_parents(familyTree[list[2]])
 
                         print("p3 parents: ")
-                        for a in familyTree[d3].get_parents():
+                        for a in familyTree[list[3]].get_parents():
                             print(a.get_name())
                         print()
 
                         #added children to make a siblings list
-                        familyTree[d1].add_children(child)
-                        familyTree[d2].add_children(child)
+                        familyTree[list[1]].add_children(child)
+                        familyTree[list[2]].add_children(child)
 
                         print("p1 kids: ")
-                        for a in familyTree[d1].get_children():
+                        for a in familyTree[list[1]].get_children():
                             print(a.get_name())
                         print()
                         print("p2 kids: ")
-                        for a in familyTree[d2].get_children():
+                        for a in familyTree[list[2]].get_children():
                             print(a.get_name())
 
                         #get children born from the two parents + make them kid's sibling
-                        temp1 = familyTree[d1].get_children()
-                        temp2 = familyTree[d2].get_children()
+                        temp1 = familyTree[list[1]].get_children()
+                        temp2 = familyTree[list[2]].get_children()
                         temp = set(temp1).intersection(temp2)
                         #check if siblings is not kid or already on list
                         for a in temp:
-                            if a.get_name() != d3 and a not in child.get_siblings():
+                            if a.get_name() != list[3] and a not in child.get_siblings():
                                 child.add_siblings(a)
                     print()
                     print("p3 siblings: ")
-                    for a in familyTree[d3].get_siblings():
+                    for a in familyTree[list[3]].get_siblings():
                         print(a.get_name())
 
-            elif key == 'W':
+            elif list[0] == 'W':
                 print("W")
-                #print(queries.wMethod(d1, d2))
-            elif key == 'X':
+                #print(queries.wMethod(list[1], list[2]))
+            elif list[0] == 'X' and num == 4:
                 print("X")
-                #print(queries.xMethod(d1, d3, d2))
+                #print(queries.xMethod(list[1], list[3], list[2]))
             else:
                 print("Error: query doesn't exist")
 
