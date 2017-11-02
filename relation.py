@@ -13,6 +13,7 @@ class Relation:
         if relation == 'cousin':
 
         if relation == 'unrelated':
+            
     def wMethod(name1, relation):
         #a brainstorm to help you Andrew -Jamie
         if relation == "half-siblings":
