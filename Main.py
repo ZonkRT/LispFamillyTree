@@ -38,21 +38,29 @@ class run_tree:
             p3 = {"Name": d3, "Value": Person(d3)}
             if p3 not in familyTree:
                 child = p3["Value"]
-                child.add_parents(d1)
-                child.add_parents(d2)
+                child.add_parents(p1["Value"])
+                child.add_parents(p2["Value"])
 
                 #added children to make a siblings list
-                p1["Value"].add_children(d3)
-                p2["Value"].add_children(d3)
+                p1["Value"].add_children(p3["Value"])
+                p2["Value"].add_children(p3["Value"])
 
-                p1["Value"].add_children("Elisa")
-                p1["Value"].add_children("Son")
+                c = Person("Elisa")
+                d = Person("Son")
+                e = Person("Nutter")
+                p1["Value"].add_children(c)
+                p1["Value"].add_children(d)
 
-                p2["Value"].add_children("Elisa")
-                p2["Value"].add_children("Nutter")
+                p2["Value"].add_children(c)
+                p2["Value"].add_children(e)
 
-                print("p1 kids", p1["Value"].get_children())
-                print("p2 kids", p2["Value"].get_children())
+                print("p1 kids: ")
+                for a in p1["Value"].get_children():
+                    print(a.get_name())
+                print()
+                print("p2 kids: ")
+                for a in p2["Value"].get_children():
+                    print(a.get_name())
 
                 #get children born from the two parents + make them kid's sibling
                 temp1 = p1["Value"].get_children()
@@ -60,11 +68,14 @@ class run_tree:
                 temp = set(temp1).intersection(temp2)
                 #check if siblings is not kid or already on list
                 for a in temp:
-                    if a != d3 and a not in child.get_siblings():
+                    if a.get_name() != d3 and a not in child.get_siblings():
                         child.add_siblings(a)
 
                 familyTree.append(p3)
-            print("p3 siblings", p3["Value"].get_siblings())
+            print()
+            print("p3 siblings: ")
+            for a in p3["Value"].get_siblings():
+                print(a.get_name())
 
     if key == 'W':
         print("W")
