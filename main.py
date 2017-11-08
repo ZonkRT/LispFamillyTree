@@ -1,12 +1,12 @@
 from person import person
+import sys
 
 class run_tree:
     #queries = Relation() #for relation object
     familyTree = dict()
-    while input != "no":
-        answer = input()
+    for answer in sys.stdin:
         list = answer.split(" ")
-        num = len(list) # check if query is complete
+        num = len(list)
         if (num <= 2):
             print("Empty query")
         #check if it is E, and if there are queries filled in
@@ -17,14 +17,14 @@ class run_tree:
                     familyTree[list[1]] = person(list[1])
                 if list[2] not in familyTree:
                     familyTree[list[2]] = person(list[2])
-                if num == 4: #people make a kid
+                if num == 4:
                     if list[3] not in familyTree:
                         familyTree[list[3]] = person(list[3])
                         child = familyTree[list[3]]
                         child.add_parents(familyTree[list[1]])
                         child.add_parents(familyTree[list[2]])
 
-                        #added child to parents
+                        #add kids to parents children list
                         familyTree[list[1]].add_children(child)
                         familyTree[list[2]].add_children(child)
 
@@ -45,7 +45,6 @@ class run_tree:
                 #print(queries.xMethod(list[1], list[3], list[2]))
             else:
                 print("Error: query doesn't exist")
-
 
 
 
