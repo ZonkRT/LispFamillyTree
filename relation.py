@@ -19,14 +19,16 @@ class Relation:
                 return 'no'
 
         if relation == 'ancestor':
+            if name2 in self.getAncestors(name1):
+                return 'yes'
+            else:
+                return 'no'
 
         if relation == 'cousin':
 
         if relation == 'unrelated':
 
     def wMethod(self, name1, relation):
-        #a brainstorm to help you Andrew -Jamie
-        output = list()
         if relation == "half-siblings":
             return self.getHalfSiblings(name1)
 
@@ -39,13 +41,13 @@ class Relation:
             return siblings
 
         if relation == 'ancestor':
-            return self.getAncestors(name1)
+           return self.getAncestors(name1)
 
         if relation == 'cousin':
             return self.getCousins(name1)
 
         if relation == 'unrelated':
-            
+
 
     def getHalfSiblings(self, name):
         list1 = name.get_parents()[0].get_children()
@@ -60,10 +62,10 @@ class Relation:
 
     def getAncestors(self, name):
         ancestors = list()
-        if(name == null):
-            return null
-        if(name.get_parents[0] == null || name.get_parents[1] == null):
-            return null
+        if(name == None):
+            return None
+        if(name.get_parents[0] == None || name.get_parents[1] == None):
+            return None
         else:
             ancestors.append(name.get_parents[0])
             ancestors.append(name.get_parents[1])
