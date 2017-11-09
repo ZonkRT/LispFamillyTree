@@ -2,7 +2,6 @@ class person:
     def __init__(self, x):
         self.name = x
         self.children = list()
-        self.siblings = list()
         self.parents = list()
 
     def get_name(self):
@@ -14,11 +13,14 @@ class person:
     def get_children(self):
         return self.children
 
-    def add_siblings(self, sib):
-        self.siblings.append(sib)
-
     def get_siblings(self):
-        return self.siblings
+        if (len(self.parents) > 0):
+            temp1 = self.parents[0].get_children()
+            temp2 = self.parents[1].get_children()
+            temp = set(temp1).intersection(set(temp2))
+            return list(temp)
+        else:
+            return []
 
     def add_parents(self, par):
         self.parents.append(par)
