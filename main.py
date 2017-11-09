@@ -1,10 +1,12 @@
 from person import person
+from relation import Relation
 import sys
 
 class run_tree:
-    #queries = Relation() #for relation object
+    queries = Relation()
     familyTree = dict()
     for answer in sys.stdin:
+        answer = answer.strip("\n")
         list = answer.split(" ")
         num = len(list)
         if (num <= 2):
@@ -19,6 +21,7 @@ class run_tree:
                     familyTree[list[2]] = person(list[2])
                 if num == 4:
                     if list[3] not in familyTree:
+                        #add kid to tree and parents to kid
                         familyTree[list[3]] = person(list[3])
                         child = familyTree[list[3]]
                         child.add_parents(familyTree[list[1]])
@@ -28,21 +31,12 @@ class run_tree:
                         familyTree[list[1]].add_children(child)
                         familyTree[list[2]].add_children(child)
 
-                        #get children born from the two parents + make them kid's sibling
-                        temp1 = familyTree[list[1]].get_children()
-                        temp2 = familyTree[list[2]].get_children()
-                        temp = set(temp1).intersection(temp2)
-                        #check if siblings is not kid or already on list
-                        for a in temp:
-                            if a.get_name() != list[3] and a not in child.get_siblings():
-                                child.add_siblings(a)
-
             elif list[0] == 'W':
-                print("W")
-                #print(queries.wMethod(list[1], list[2]))
+                print(queries.wMethod(familyTree[list[1]], list[2]))
+
             elif list[0] == 'X' and num == 4:
-                print("X")
-                #print(queries.xMethod(list[1], list[3], list[2]))
+                print(queries.xMethod(familyTree[list[1]], familyTree[list[3]], list[2]))
+
             else:
                 print("Error: query doesn't exist")
 
