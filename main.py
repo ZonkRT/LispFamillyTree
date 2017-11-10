@@ -9,10 +9,8 @@ class run_tree:
         answer = answer.strip("\n")
         list = answer.split(" ")
         num = len(list)
-        if (num <= 2):
-            print("Empty query")
-        #check if it is E, and if there are queries filled in
-        else:
+
+        if num >= 3:
             if list[0] == "E":
                 #add to family tree dictionary if not in familytree
                 if list[1] not in familyTree:
@@ -31,11 +29,13 @@ class run_tree:
                         familyTree[list[1]].add_children(child)
                         familyTree[list[2]].add_children(child)
 
-            elif list[0] == 'W':
-                print(queries.wMethod(familyTree[list[1]], list[2]))
-
             elif list[0] == 'X' and num == 4:
                 print(queries.xMethod(familyTree[list[1]], familyTree[list[3]], list[2]))
+
+            elif list[0] == 'W' and num == 3:
+                queryList = (queries.wMethod(familyTree[list[1]], list[2]))
+                for a in queryList:
+                    print(a.get_name())
 
             else:
                 print("Error: query doesn't exist")
