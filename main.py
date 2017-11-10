@@ -35,7 +35,7 @@ class run_tree:
             elif list[0] == 'W' and num == 3:
                 queryList = (queries.wMethod(familyTree[list[1]], list[2]))
                 for a in queryList:
-                    print(a.get_name())
+                    print(a)
 
             else:
                 print("Error: query doesn't exist")

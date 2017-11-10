@@ -24,16 +24,29 @@ class Relation:
             else:
                 return 'no'
 
-        """if relation == 'cousin':
-
-        if relation == 'unrelated':"""
+        if relation == 'cousin':
+            if self.isCousin(name1, name2):
+                return 'yes'
+            else:
+                'no'
+        if relation == 'unrelated':
+            if self.isRelated(name1, name2):
+                return 'no'
+            else:
+                return 'yes'
 
     def wMethod(self, name1, relation):
         if relation == "half-siblings":
-            return self.getHalfSiblings(name1)
+            hflist = list()
+            for a in self.getHalfSiblings(name1):
+                hflist.append(a.get_name())
+            return hflist.sort()
 
         if relation == 'parent':
-            return name1.get_parents()
+            plist = list()
+            for a in name1.get_parents():
+                plist.append(a.get_name())
+            return plist.sort()
 
         if relation == 'sibling':
             siblings = name1.get_siblings()
@@ -73,7 +86,7 @@ class Relation:
 
         return ancestors
 
-    """def isRelated(self, name1, name2):
+    def isRelated(self, name1, name2):
         result = False
         memberAncestors = self.getAncestors(name1)
         relativeAncestors = self.getAncestors(name2)
@@ -93,4 +106,26 @@ class Relation:
             if person == name1:
                 result = True
 
-        return result"""
+        return result
+
+    def isCousin(self, name1, name2):
+        result = False
+        memberAncestors = self.getAncestors(name1)
+        relativeAncestors = self.getAncestors(name2)
+
+        #check if they share common ancestor
+        for person1 in memberAncestors:
+            for person2 in relativeAncestors:
+                if person1 == person2:
+                    result = True
+
+        #check if one is a direct ancestor
+        for person in memberAncestors:
+            if person == name2:
+                result = False
+
+        for person in relativeAncestors:
+            if person == name1:
+                result = False
+
+        return result
