@@ -2,7 +2,7 @@
 class Relation:
     def xMethod(self, name1, name2, relation):
         if relation == 'parent':
-            if name2 in name1.get_parents():
+            if name1 in name2.get_parents():
                 return 'yes'
             else:
                 return 'no'
@@ -24,29 +24,28 @@ class Relation:
             else:
                 return 'no'
 
-        if relation == 'cousin':
+        """if relation == 'cousin':
 
-        if relation == 'unrelated':
+        if relation == 'unrelated':"""
 
     def wMethod(self, name1, relation):
         if relation == "half-siblings":
             return self.getHalfSiblings(name1)
 
         if relation == 'parent':
-            parents = name1.get_parents()
-            return parents
+            return name1.get_parents()
 
         if relation == 'sibling':
-            siblings = name1.get_siblings
+            siblings = name1.get_siblings()
             return siblings
 
         if relation == 'ancestor':
            return self.getAncestors(name1)
 
-        if relation == 'cousin':
+        """if relation == 'cousin':
             return self.getCousins(name1)
 
-        if relation == 'unrelated':
+        if relation == 'unrelated':"""
 
 
     def getHalfSiblings(self, name):
@@ -64,7 +63,7 @@ class Relation:
         ancestors = list()
         if(name == None):
             return None
-        if(name.get_parents[0] == None || name.get_parents[1] == None):
+        if (name.get_parents[0] == None) or (name.get_parents[1] == None):
             return None
         else:
             ancestors.append(name.get_parents[0])
@@ -74,7 +73,7 @@ class Relation:
 
         return ancestors
 
-    def isRelated(self, name1, name2):
+    """def isRelated(self, name1, name2):
         result = False
         memberAncestors = self.getAncestors(name1)
         relativeAncestors = self.getAncestors(name2)
@@ -94,4 +93,4 @@ class Relation:
             if person == name1:
                 result = True
 
-        return result
+        return result"""
