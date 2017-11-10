@@ -1,4 +1,3 @@
-
 class Relation:
     def xMethod(self, name1, name2, relation):
         if relation == 'parent':
@@ -40,24 +39,35 @@ class Relation:
             hflist = list()
             for a in self.getHalfSiblings(name1):
                 hflist.append(a.get_name())
-            return hflist.sort()
+            hflist.sort()
+            return hflist
 
         if relation == 'parent':
             plist = list()
             for a in name1.get_parents():
                 plist.append(a.get_name())
-            return plist.sort()
+
+            plist.sort()
+            return plist
 
         if relation == 'sibling':
-            siblings = name1.get_siblings()
-            return siblings
+            slist = list()
+            for a in name1.get_siblings():
+                slist.append(a.get_name())
+
+            slist.sort()
+            return slist
 
         if relation == 'ancestor':
-           return self.getAncestors(name1)
+            alist = list()
+            for a in self.getAncestors(name1):
+                alist.append(a.get_name())
+
+            alist.sort()
+            return alist
 
         """if relation == 'cousin':
             return self.getCousins(name1)
-
         if relation == 'unrelated':"""
 
 
