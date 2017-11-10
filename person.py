@@ -14,11 +14,12 @@ class person:
         return self.children
 
     def get_siblings(self):
-        if (len(self.parents) > 0):
+        if len(self.parents) > 0:
             temp1 = self.parents[0].get_children()
             temp2 = self.parents[1].get_children()
             temp = set(temp1).intersection(set(temp2))
-            return list(temp)
+            temp.remove(self)
+            return temp
         else:
             return []
 
