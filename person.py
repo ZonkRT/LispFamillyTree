@@ -1,8 +1,8 @@
 class person:
     def __init__(self, x):
         self.name = x
-        self.children = list()
-        self.parents = list()
+        self.children = []
+        self.parents = []
 
     def get_name(self):
         return self.name
@@ -17,9 +17,13 @@ class person:
         if len(self.parents) > 0:
             temp1 = self.parents[0].get_children()
             temp2 = self.parents[1].get_children()
-            temp = set(temp1).intersection(set(temp2))
-            temp.remove(self)
-            return temp
+            list1 = []
+            for i in temp1:
+                if i in temp2:
+                    list1.append(i)
+            list1 = list(set(list1))
+            list1.remove(self)
+            return list1
         else:
             return []
 
