@@ -30,12 +30,14 @@ class run_tree:
                         familyTree[list[2]].add_children(child)
 
             elif list[0] == 'X' and num == 4:
-                print(queries.xMethod(familyTree[list[1]], familyTree[list[3]], list[2]))
+                if (list[1] in familyTree) and (list[3] in familyTree):
+                    print(queries.xMethod(familyTree[list[1]], familyTree[list[3]], list[2]))
 
             elif list[0] == 'W' and num == 3:
-                queryList = (queries.wMethod(familyTree[list[1]], list[2]))
-                for a in queryList:
-                    print(a)
+                if list[2] in familyTree:
+                    queryList = (queries.wMethod(familyTree[list[2]], list[1]))
+                    for a in queryList:
+                        print(a)
 
             else:
                 print("Error: query doesn't exist")
