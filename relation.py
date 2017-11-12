@@ -86,14 +86,13 @@ class Relation:
             return rlist
 
     def getHalfSiblings(self, name):
-        temp1 = name.parents[0].get_children()
-        temp2 = name.parents[1].get_children()
-        list1 = []
+        if len(name.get_parents()) < 1:
+            return []
+        temp1 = name.get_parents[0].get_children()
+        temp2 = name.get_parents[1].get_children()
+        list1 = temp1 + temp2
         halfies = []
-        for i in temp1:
-            list1.append(i)
-        for i in temp2:
-            list1.append(i)
+
         list1 = list(set(list1))
         list1.remove(name)
 
@@ -104,30 +103,26 @@ class Relation:
 
     def getAncestors(self, name):
         ancestors = list()
-        if name is None:
-            return []
-        if len(name.get_parents()) == 0:
+        if len(name.get_parents()) < 1:
             return []
         else:
-            ancestors.append(name.get_parents()[0])
-            ancestors.append(name.get_parents()[1])
-            ancestors.extend(self.getAncestors(name.get_parents()[0]))
-            ancestors.extend(self.getAncestors(name.get_parents()[1]))
-
-        return ancestors
+            ancestors = ancestors + name.get_parents()
+            for x in name.get_parents():
+                ancestors = ancestors + self.getAncestors(x)
+                return ancestors
 
     def isRelated(self, name1, name2):
         result = False
         memberAncestors = self.getAncestors(name1)
         relativeAncestors = self.getAncestors(name2)
 
-        #check if they share common ancestor
+        # check if they share common ancestor
         for person1 in memberAncestors:
             for person2 in relativeAncestors:
                 if person1 == person2:
                     result = True
 
-        #check if one is a direct ancestor
+        # check if one is a direct ancestor
         for person in memberAncestors:
             if person == name2:
                 result = True
@@ -143,13 +138,13 @@ class Relation:
         memberAncestors = self.getAncestors(name1)
         relativeAncestors = self.getAncestors(name2)
 
-        #check if they share common ancestor
+        # check if they share common ancestor
         for person1 in memberAncestors:
             for person2 in relativeAncestors:
                 if person1 == person2:
                     result = True
 
-        #check if one is a direct ancestor
+        # check if one is a direct ancestor
         for person in memberAncestors:
             if person == name2:
                 result = False
@@ -159,14 +154,23 @@ class Relation:
                 result = False
 
         return result
-    
-        def getUnrelated(self, name, familyTree):
+
+    def getUnrelated(self, name, familyTree):
         unRelated = list()
+
         if name is None:
             return []
         else:
-            for person1 in familyTree:
-                if person1.isRelated(person1, name) == false:
+            for person1 in familyTree.values():
+                if self.isRelated(person1, name) is False:
                     unRelated.append(person1)
-
         return unRelated
+
+    def getCousins(self, name, tree):
+        if name is None:
+            return []
+        cousins = list()
+        for cousin in tree.values():
+            if self.isCousin(name, cousin) and name != cousin:
+                    cousins.append(cousin)
+        return cousins
