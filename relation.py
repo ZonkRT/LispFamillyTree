@@ -27,7 +27,7 @@ class Relation:
             if self.isCousin(name1, name2):
                 return 'yes'
             else:
-                'no'
+                return 'no'
         if relation == 'unrelated':
             if self.isRelated(name1, name2):
                 return 'no'
