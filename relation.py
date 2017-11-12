@@ -35,10 +35,11 @@ class Relation:
                 return 'yes'
 
     def wMethod(self, name1, relation):
-        if relation == "half-siblings":
+        if relation == "half-sibling":
             hflist = list()
             for a in self.getHalfSiblings(name1):
-                hflist.append(a.get_name())
+                if a.get_name() not in hflist:
+                    hflist.append(a.get_name())
             hflist.sort()
             return hflist
 
@@ -51,7 +52,7 @@ class Relation:
             return plist
 
         if relation == 'sibling':
-            slist = list()
+            slist = []
             for a in name1.get_siblings():
                 slist.append(a.get_name())
 
@@ -61,7 +62,8 @@ class Relation:
         if relation == 'ancestor':
             alist = list()
             for a in self.getAncestors(name1):
-                alist.append(a.get_name())
+                if a.get_name() not in alist:
+                    alist.append(a.get_name())
 
             alist.sort()
             return alist
@@ -72,27 +74,33 @@ class Relation:
 
 
     def getHalfSiblings(self, name):
-        list1 = name.get_parents()[0].get_children()
-        list2 = name.get_parents()[1].get_children()
-        halfies = list()
-        temp = list(set(list1.append(list2)))
-        for a in temp:
-            for b in name.get_sibling():
-                if a != b:
-                    halfies.append(a)
+        temp1 = name.parents[0].get_children()
+        temp2 = name.parents[1].get_children()
+        list1 = []
+        halfies = []
+        for i in temp1:
+            list1.append(i)
+        for i in temp2:
+            list1.append(i)
+        list1 = list(set(list1))
+        list1.remove(name)
+
+        for a in list1:
+            if a not in name.get_siblings():
+                halfies.append(a)
         return list(set(halfies))
 
     def getAncestors(self, name):
         ancestors = list()
-        if(name == None):
-            return None
-        if (name.get_parents[0] == None) or (name.get_parents[1] == None):
-            return None
+        if name is None:
+            return []
+        if len(name.get_parents()) == 0:
+            return []
         else:
-            ancestors.append(name.get_parents[0])
-            ancestors.append(name.get_parents[1])
-            ancestors.extend(self.getAncestors(name.get_parents[0]))
-            ancestors.extend(self.getAncestors(name.get_parents[1]))
+            ancestors.append(name.get_parents()[0])
+            ancestors.append(name.get_parents()[1])
+            ancestors.extend(self.getAncestors(name.get_parents()[0]))
+            ancestors.extend(self.getAncestors(name.get_parents()[1]))
 
         return ancestors
 
