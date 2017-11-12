@@ -24,17 +24,17 @@ class Relation:
                 return 'no'
 
         if relation == 'cousin':
-            if self.isCousin(name1, name2):
+            if self.isCousin(name1, name2) is True:
                 return 'yes'
             else:
                 return 'no'
         if relation == 'unrelated':
-            if self.isRelated(name1, name2):
+            if self.isRelated(name1, name2) is True:
                 return 'no'
             else:
                 return 'yes'
 
-    def wMethod(self, name1, relation):
+    def wMethod(self, name1, relation, tree):
         if relation == "half-sibling":
             hflist = list()
             for a in self.getHalfSiblings(name1):
@@ -68,10 +68,22 @@ class Relation:
             alist.sort()
             return alist
 
-        """if relation == 'cousin':
-            return self.getCousins(name1)
-        if relation == 'unrelated':"""
+        if relation == 'cousin':
+            clist = list()
+            for a in self.getCousins(name1, tree):
+                if a.get_name() not in clist:
+                    clist.append(a.get_name())
 
+            clist.sort()
+            return clist
+        if relation == 'unrelated':
+            rlist = list()
+            for a in self.getUnrelated(name1, tree):
+                if a.get_name() not in rlist:
+                    rlist.append(a.get_name())
+
+            rlist.sort()
+            return rlist
 
     def getHalfSiblings(self, name):
         temp1 = name.parents[0].get_children()
