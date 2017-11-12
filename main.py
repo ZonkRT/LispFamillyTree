@@ -5,8 +5,8 @@ import sys
 class run_tree:
     queries = Relation()
     familyTree = dict()
-    for answer in sys.stdin:
-        answer = answer.strip("\n")
+    while True:
+        answer = sys.stdin.readline()
         list = answer.split(" ")
         num = len(list)
 
@@ -19,23 +19,26 @@ class run_tree:
                     familyTree[list[2]] = person(list[2])
                 if num == 4:
                     if list[3] not in familyTree:
-                        #add kid to tree and parents to kid
+                        #add kid to tree and parents to kid's parent list
                         familyTree[list[3]] = person(list[3])
-                        child = familyTree[list[3]]
-                        child.add_parents(familyTree[list[1]])
-                        child.add_parents(familyTree[list[2]])
+                        familyTree[list[3]].add_parents(familyTree[list[1]])
+                        familyTree[list[3]].add_parents(familyTree[list[2]])
 
                         #add kids to parents children list
-                        familyTree[list[1]].add_children(child)
-                        familyTree[list[2]].add_children(child)
+                        familyTree[list[1]].add_children(familyTree[list[3]])
+                        familyTree[list[2]].add_children(familyTree[list[3]])
 
             elif list[0] == 'X' and num == 4:
                 if (list[1] in familyTree) and (list[3] in familyTree):
                     print(queries.xMethod(familyTree[list[1]], familyTree[list[3]], list[2]))
+                elif list[2] == 'unrelated':
+                    print('yes')
+                else:
+                    print('no')
 
             elif list[0] == 'W' and num == 3:
                 if list[2] in familyTree:
-                    queryList = (queries.wMethod(familyTree[list[2]], list[1]), familyTree)
+                    queryList = (queries.wMethod(familyTree[list[2]], list[1], familyTree))
                     for a in queryList:
                         print(a)
 
