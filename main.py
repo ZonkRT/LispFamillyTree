@@ -35,7 +35,7 @@ class run_tree:
 
             elif list[0] == 'W' and num == 3:
                 if list[2] in familyTree:
-                    queryList = (queries.wMethod(familyTree[list[2]], list[1]))
+                    queryList = (queries.wMethod(familyTree[list[2]], list[1]), familyTree)
                     for a in queryList:
                         print(a)
 
