@@ -159,3 +159,14 @@ class Relation:
                 result = False
 
         return result
+    
+        def getUnrelated(self, name, familyTree):
+        unRelated = list()
+        if name is None:
+            return []
+        else:
+            for person1 in familyTree:
+                if person1.isRelated(person1, name) == false:
+                    unRelated.append(person1)
+
+        return unRelated
