@@ -18,7 +18,7 @@ class Relation:
                 return 'no'
 
         if relation == 'ancestor':
-            if name2 in self.getAncestors(name1):
+            if name1 in self.getAncestors(name2):
                 return 'yes'
             else:
                 return 'no'
@@ -88,8 +88,8 @@ class Relation:
     def getHalfSiblings(self, name):
         if len(name.get_parents()) < 1:
             return []
-        temp1 = name.get_parents[0].get_children()
-        temp2 = name.get_parents[1].get_children()
+        temp1 = name.get_parents()[0].get_children()
+        temp2 = name.get_parents()[1].get_children()
         list1 = temp1 + temp2
         halfies = []
 
@@ -103,13 +103,17 @@ class Relation:
 
     def getAncestors(self, name):
         ancestors = list()
+        if name is None:
+            return []
         if len(name.get_parents()) < 1:
             return []
         else:
-            ancestors = ancestors + name.get_parents()
-            for x in name.get_parents():
-                ancestors = ancestors + self.getAncestors(x)
-                return ancestors
+            ancestors.append(name.get_parents()[0])
+            ancestors.append(name.get_parents()[1])
+            ancestors.extend(self.getAncestors(name.get_parents()[0]))
+            ancestors.extend(self.getAncestors(name.get_parents()[1]))
+
+        return ancestors
 
     def isRelated(self, name1, name2):
         result = False
