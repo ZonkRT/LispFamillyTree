@@ -1,3 +1,5 @@
+#Jamie Chang, Alan Oltman, Andrew Yee
+
 from person import person
 from relation import Relation
 import sys
